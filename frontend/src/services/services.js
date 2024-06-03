@@ -23,16 +23,31 @@ export const login = (data) => {
     });
 };
 
+// export const signup = (data) => {
+//   axios
+//     .post(`${baseUrl}/auth/signup`, data)
+//     .then((response) => {
+//       return response.data;
+//     })
+//     .catch((error) => {
+//       return console.error(error);
+//     });
+// };
+
+
 export const signup = (data) => {
-  axios
-    .post(`${baseUrl}/auth/signup`, data)
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      return console.error(error);
-    });
+  return axios.post(`${baseUrl}/auth/signup`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+  .then((response) => response.data)
+  .catch((error) => {
+    console.error('Error during signup:', error);
+    throw error; // Re-throw the error to be handled by the caller
+  });
 };
+
 export const getUsers = () => {
   return axios
     .get(`${baseUrl}/users`) // Assuming the route is '/users' for getting all users
